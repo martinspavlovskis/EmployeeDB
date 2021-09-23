@@ -1,0 +1,60 @@
+﻿@page
+@model Project.Pages.Employees.IndexModel
+@{
+}
+
+<br/>
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Employees</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="Add" class="btn btn-info form-control text-white">Add New Employee</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Employees.Any())
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().FullName"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().Position"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Employees.FirstOrDefault().Location"></label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Employees)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Position)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Location)
+                            </td>
+                            <td>                              
+                                <a asp-page="Edit" asp-route-id="@item.Id"><i class="fa fa-marker fa-lg p-lg-1"></i></a>
+                                <a asp-page-handler="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash-alt fa-lg"></i></a>                               
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No Employees Currently Available</p>
+            }
+        </form>
+    </div>
+</div>
